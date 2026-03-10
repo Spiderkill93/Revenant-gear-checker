@@ -246,7 +246,7 @@ public class RevSafespotPanel extends PluginPanel
 			{
 				continue;
 			}
-			var stats = itemManager.getItemStats(item.getId(), false);
+			var stats = itemManager.getItemStats(item.getId());
 			if (stats == null || stats.getEquipment() == null)
 			{
 				continue;
