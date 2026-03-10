@@ -3,8 +3,8 @@ package com.revsafespot;
 import com.google.inject.Provides;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
+import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -13,8 +13,6 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
-
-import javax.swing.SwingUtilities;
 
 import java.awt.image.BufferedImage;
 
@@ -27,13 +25,7 @@ import java.awt.image.BufferedImage;
 public class RevSafespotPlugin extends Plugin
 {
 	@Inject
-	private Client client;
-
-	@Inject
 	private ClientToolbar clientToolbar;
-
-	@Inject
-	private RevSafespotConfig config;
 
 	@Inject
 	private RevSafespotPanel panel;
@@ -53,7 +45,6 @@ public class RevSafespotPlugin extends Plugin
 			.build();
 
 		clientToolbar.addNavigation(navButton);
-		SwingUtilities.invokeLater(panel::refresh);
 		log.debug("Revenant Gear Checker started!");
 	}
 
@@ -65,11 +56,17 @@ public class RevSafespotPlugin extends Plugin
 	}
 
 	@Subscribe
+	public void onGameTick(GameTick tick)
+	{
+		panel.refresh();
+	}
+
+	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
 		if (event.getContainerId() == InventoryID.EQUIPMENT.getId())
 		{
-			SwingUtilities.invokeLater(panel::refresh);
+			panel.refresh();
 		}
 	}
 
