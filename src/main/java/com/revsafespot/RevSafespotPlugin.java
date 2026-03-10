@@ -2,7 +2,6 @@ package com.revsafespot;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
-import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.InventoryID;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
@@ -16,7 +15,6 @@ import net.runelite.client.util.ImageUtil;
 
 import java.awt.image.BufferedImage;
 
-@Slf4j
 @PluginDescriptor(
 	name = "Revenant Gear Checker",
 	description = "Shows whether your gear is set up correctly to safespot revenants",
@@ -45,14 +43,12 @@ public class RevSafespotPlugin extends Plugin
 			.build();
 
 		clientToolbar.addNavigation(navButton);
-		log.debug("Revenant Gear Checker started!");
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
 		clientToolbar.removeNavigation(navButton);
-		log.debug("Rev Safespot Checker stopped!");
 	}
 
 	@Subscribe
