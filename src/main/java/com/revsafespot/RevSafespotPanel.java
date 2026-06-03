@@ -175,9 +175,17 @@ public class RevSafespotPanel extends PluginPanel
 		int magic   = client.getBoostedSkillLevel(Skill.MAGIC);
 		int defence = client.getBoostedSkillLevel(Skill.DEFENCE);
 
-		int[] b = getDefenceBonuses(); // stab, slash, crush, ranged, magic
-		int effectiveMagicDef = (int) Math.floor(magic * 0.7 + defence * 0.3) + b[4];
+		int[] b = getDefenceBonuses(); // stab, slash, crush, ranged, magic_bonus
 		int highestMelee = Math.max(b[0], Math.max(b[1], b[2]));
+
+		// Revenants pick the attack style with the lowest player defence roll.
+		// Magic uses a mixed effective level (70% magic + 30% defence), so the
+		// comparison must be done in roll space, not additive bonus space.
+		int magicEd    = (int) Math.floor(magic * 0.7 + defence * 0.3);
+		int meleeRoll  = (defence + 8) * (highestMelee + 64);
+		int magicRoll  = (magicEd  + 8) * (b[4]        + 64);
+		// Normalise to the same scale as melee/ranged bonuses for display
+		int magicRollEq = Math.round((float) magicRoll / (defence + 8) - 64);
 
 		valMagic.setText(String.valueOf(magic));
 		valDefence.setText(String.valueOf(defence));
@@ -185,10 +193,10 @@ public class RevSafespotPanel extends PluginPanel
 		valSlash.setText(String.valueOf(b[1]));
 		valCrush.setText(String.valueOf(b[2]));
 		valRanged.setText(coloredStat(b[3], highestMelee));
-		valMagicDef.setText(coloredStat(effectiveMagicDef, highestMelee));
+		valMagicDef.setText(coloredStat(magicRollEq, highestMelee));
 
 		boolean rangedOk = b[3] > highestMelee;
-		boolean magicOk  = effectiveMagicDef > highestMelee;
+		boolean magicOk  = magicRoll > meleeRoll;
 
 		if (rangedOk && magicOk)
 		{
@@ -207,7 +215,7 @@ public class RevSafespotPanel extends PluginPanel
 		}
 		else
 		{
-			statusLabel.setText("<html><center>NOT SAFE<br><font size='3' color='#9c8b7a'>Magic def too low (" + effectiveMagicDef + " vs " + highestMelee + ")</font></center></html>");
+			statusLabel.setText("<html><center>NOT SAFE<br><font size='3' color='#9c8b7a'>Magic def too low (" + magicRollEq + " vs " + highestMelee + ")</font></center></html>");
 			statusLabel.setForeground(COLOR_DANGER);
 		}
 	}

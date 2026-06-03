@@ -1,11 +1,9 @@
 package com.revsafespot;
 
-import com.google.inject.Provides;
 import javax.inject.Inject;
 import net.runelite.api.InventoryID;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
-import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -66,9 +64,4 @@ public class RevSafespotPlugin extends Plugin
 		}
 	}
 
-	@Provides
-	RevSafespotConfig provideConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(RevSafespotConfig.class);
-	}
 }
