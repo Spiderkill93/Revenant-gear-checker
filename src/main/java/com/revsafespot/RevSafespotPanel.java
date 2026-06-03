@@ -9,11 +9,14 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
+import net.runelite.client.util.LinkBrowser;
 
 import javax.inject.Inject;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RevSafespotPanel extends PluginPanel
 {
@@ -96,6 +99,9 @@ public class RevSafespotPanel extends PluginPanel
 		p.add(Box.createVerticalStrut(6));
 		p.add(buildStatusCard());
 
+		p.add(Box.createVerticalStrut(8));
+		p.add(buildGuideLink());
+
 		return p;
 	}
 
@@ -159,6 +165,23 @@ public class RevSafespotPanel extends PluginPanel
 
 		card.add(statusLabel, BorderLayout.CENTER);
 		return card;
+	}
+
+	private JLabel buildGuideLink()
+	{
+		JLabel link = new JLabel("<html><a href=''>Gear checker &amp; guide on hcim.net</a></html>");
+		link.setFont(FontManager.getRunescapeSmallFont());
+		link.setHorizontalAlignment(SwingConstants.CENTER);
+		link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		link.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				LinkBrowser.browse("https://hcim.net/pages/guides/rev-safespot-checker");
+			}
+		});
+		return link;
 	}
 
 	// ── Refresh logic ─────────────────────────────────────────────────────────
