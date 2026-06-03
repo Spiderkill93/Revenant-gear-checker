@@ -178,7 +178,7 @@ public class RevSafespotPanel extends PluginPanel
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				LinkBrowser.browse("https://hcim.net/pages/guides/rev-safespot-checker");
+				LinkBrowser.browse("https://hcim.net/pages/guides/rev-safespot-checker.html");
 			}
 		});
 		return link;
