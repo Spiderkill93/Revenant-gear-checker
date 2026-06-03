@@ -22,9 +22,9 @@ public class RevSafespotPanel extends PluginPanel
 {
 	private static final Color COLOR_SAFE    = new Color(0x44cc44);
 	private static final Color COLOR_DANGER  = new Color(0xee4444);
-	private static final Color COLOR_LABEL   = new Color(0x9c8b7a);
-	private static final Color COLOR_VALUE   = new Color(0xe8ddd0);
-	private static final Color COLOR_CARD    = new Color(0x1a1210);
+	private static final Color COLOR_LABEL   = ColorScheme.LIGHT_GRAY_COLOR;
+	private static final Color COLOR_VALUE   = Color.WHITE;
+	private static final Color COLOR_CARD    = ColorScheme.DARKER_GRAY_COLOR;
 
 	private final Client client;
 	private final ItemManager itemManager;
@@ -110,7 +110,7 @@ public class RevSafespotPanel extends PluginPanel
 		JPanel card = new JPanel(new GridBagLayout());
 		card.setBackground(COLOR_CARD);
 		card.setBorder(BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(new Color(0x991b1b, true), 1),
+			BorderFactory.createLineBorder(ColorScheme.MEDIUM_GRAY_COLOR, 1),
 			new EmptyBorder(8, 10, 8, 10)
 		));
 
@@ -121,14 +121,14 @@ public class RevSafespotPanel extends PluginPanel
 		// heading
 		JLabel h = new JLabel(heading.toUpperCase());
 		h.setFont(FontManager.getRunescapeSmallFont());
-		h.setForeground(new Color(0x991b1b));
+		h.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2; gbc.weightx = 1;
 		card.add(h, gbc);
 
 		gbc.gridwidth = 1;
 		gbc.gridy = 1;
 		JSeparator sep = new JSeparator();
-		sep.setForeground(new Color(0x991b1b, true));
+		sep.setForeground(ColorScheme.MEDIUM_GRAY_COLOR);
 		gbc.gridx = 0; gbc.gridwidth = 2;
 		card.add(sep, gbc);
 
@@ -155,7 +155,7 @@ public class RevSafespotPanel extends PluginPanel
 		JPanel card = new JPanel(new BorderLayout());
 		card.setBackground(COLOR_CARD);
 		card.setBorder(BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(new Color(0x991b1b, true), 1),
+			BorderFactory.createLineBorder(ColorScheme.MEDIUM_GRAY_COLOR, 1),
 			new EmptyBorder(10, 10, 10, 10)
 		));
 
